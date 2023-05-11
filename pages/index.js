@@ -1,12 +1,16 @@
-import Image from 'next/image'
-import { Inter } from 'next/font/google'
-
-const inter = Inter({ subsets: ['latin'] })
+import Layout from "../layout/Layout";
+import useQuiosco from "@/hooks/useQuiosco";
 
 export default function Home() {
+  const { categoriaActual } = useQuiosco();
   return (
-    <h1 className='font-bold text-5xl'>
-      Hola mundo
-    </h1>
+    <Layout pagina={categoriaActual?.nombre}>
+      <h1 className="text-3xl font-black">
+        {categoriaActual?.nombre}
+      </h1>
+      <p>
+        Elige y personaliza tu pedido a continuación
+      </p>
+    </Layout >
   )
 }
