@@ -11,6 +11,8 @@ const QuioscoProvider = ({ children }) => {
   const [producto, setProducto] = useState({});
   const [modal, setModal] = useState(false);
   const [pedido, setPedido] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [nombre, setNombre] = useState("");
 
   const router = useRouter();
 
@@ -28,6 +30,16 @@ const QuioscoProvider = ({ children }) => {
       setCategoriaActual(categorias[0]);
     }
   }, [categorias]);
+
+  useEffect(() => {
+    const calcularTotal = () => {
+      const total = pedido.reduce((total, producto) => {
+        return total + (producto.precio * producto.cantidad);
+      }, 0);
+      setTotal(total);
+    };
+    calcularTotal();
+  }, [pedido]);
 
   const handleClickCategoria = (id) => {
     const categoria = categorias.find(categoria => categoria.id === id);
@@ -68,6 +80,11 @@ const QuioscoProvider = ({ children }) => {
     toast.success("¡Producto eliminado!");
   }
 
+  const colocarOrden = async (e) => {
+    e.preventDefault();
+    console.log('colocando orden');
+}
+
   return (<QuioscoContext.Provider value={{
     categorias,
     categoriaActual,
@@ -79,7 +96,11 @@ const QuioscoProvider = ({ children }) => {
     handleAgregarPedido,
     pedido,
     handleEditarCantidades,
-    handleEliminarProducto
+    handleEliminarProducto,
+    nombre,
+    setNombre,
+    colocarOrden,
+    total
   }}>
     {children}
   </QuioscoContext.Provider>);
