@@ -61,7 +61,7 @@ const QuioscoProvider = ({ children }) => {
     modal,
     handleSetModal,
     handleAgregarPedido,
-    pedido
+    pedido,
   }}>
     {children}
   </QuioscoContext.Provider>);
