@@ -82,8 +82,30 @@ const QuioscoProvider = ({ children }) => {
 
   const colocarOrden = async (e) => {
     e.preventDefault();
-    console.log('colocando orden');
-}
+
+    try {
+      // Deben ser los mismos nombres que en el modelo
+      await axios.post('/api/ordenes', {
+        pedido,
+        total,
+        nombre,
+        fecha: Date.now().toString()
+      });
+
+      setCategoriaActual(categorias[0]);
+      setPedido([]);
+      setTotal(0);
+      setNombre("");
+      toast.success("¡Orden enviada correctamente!");
+
+      setTimeout(() => {
+        router.push('/');
+      }, 2000);
+
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (<QuioscoContext.Provider value={{
     categorias,
