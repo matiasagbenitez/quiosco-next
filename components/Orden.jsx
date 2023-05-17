@@ -1,15 +1,23 @@
-import { formatearDinero } from "@/helpers";
 import Image from "next/image";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { formatearDinero } from "@/helpers";
+
 export const Orden = ({ orden }) => {
   const { id, nombre, total, pedido } = orden;
 
-  const completarOrden = () => {
-    console.log("Completando orden");
+  const completarOrden = async () => {
+    try {
+      await axios.post(`api/ordenes/${id}`);
+      toast.success("¡Orden completada!");
+    } catch (error) {
+      toast.error("¡Hubo un error!");
+    }
   };
 
   return (
-    <div className="border p-5 space-y-3">
-      <h3 className="text-xl font-black">Orden #{id}</h3>
+    <div className="border px-5 py-3 space-y-3">
+      <h3 className="text-xl font-black uppercase">Orden #{id}</h3>
       <p className="font-semibold">Cliente: {nombre}</p>
 
       <div>
@@ -18,7 +26,7 @@ export const Orden = ({ orden }) => {
             key={platillo.id}
             className="py-2 flex border-b last-of-type:border-0 items-center"
           >
-            <div className="w-32">
+            <div className="w-24">
               <Image
                 src={`/assets/img/${platillo.imagen}.jpg`}
                 alt={`Imagen platillo {platillo.nombre}`}
@@ -37,9 +45,10 @@ export const Orden = ({ orden }) => {
         ))}
       </div>
 
-      <div className="md:flex md:items-center md:justify-between my-5">
-        <p className="mt-5 font-black text-3xl text-amber-500">
-          Total a pagar: {formatearDinero(total)}
+      <div className="md:flex md:items-center justify-center md:justify-between">
+        <p className="font-black text-2xl text-amber-500 uppercase">
+          Total: {""}
+          <span className="text-3xl">{formatearDinero(total)}</span>
         </p>
         <button
           className="bg-indigo-600 hover:bg-indigo-800 text-white mt-5 md:mt-0 px-5 py-2 uppercase font-bold rounded-md"

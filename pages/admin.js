@@ -7,14 +7,14 @@ export default function Admin() {
 
     const url = '/api/ordenes';
     const fetcher = (url) => axios.get(url).then((res) => res.data);
-    const { data, error, isLoading } = useSWR(url, fetcher);
+    const { data, error, isLoading } = useSWR(url, fetcher, { refreshInterval: 500 });
 
     return (
         <AdminLayout pagina={'Admin'}>
             <h1 className="text-3xl font-black">
                 Panel de Administración
             </h1>
-            <p>Administra las órdenes</p>
+            <p className="mb-5">Administra las órdenes</p>
 
             {data && data.length ?
                 data.map((orden) => (

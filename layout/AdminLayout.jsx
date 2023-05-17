@@ -8,21 +8,23 @@ export default function AdminLayout({ children, pagina }) {
     <>
       <Head>
         <title>Café - {pagina}</title>
-        <meta name="description" content="Quosco Cafetería" />
+        <meta name="description" content="Quiosco de Café" />
       </Head>
 
       <div className="md:flex">
-            <aside className="md:w-4/12 xl:w-1/4 2xl:w-1/5 py-5">
+            <aside className="md:w-2/12">
+                <div className="flex items-center justify-center mt-3">
                 <Image
                     width={200}
                     height={50}
                     src="/assets/img/logo.svg"
                     alt="imagen logotipo"
                 />
+                </div>
             </aside>
 
-            <main className="md:w-8/12 xl:w-3/4 2xl:w-4/5 h-screen overflow-y-scroll">
-                <div className="p-10">
+            <main className="md:w-10/12 h-screen overflow-y-scroll">
+                <div className="p-5">
                     {children}
                 </div>
             </main>
